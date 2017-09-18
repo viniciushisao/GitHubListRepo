@@ -17,7 +17,7 @@ import retrofit2.Call;
 
 public class MainControler {
 
-    private static final int REPOS_PER_PAGE = 15;
+    public static final int REPOS_PER_PAGE = 15;
     private static final String REPO_USER = "JakeWharton";
     private boolean isRetrievingData = false;
 

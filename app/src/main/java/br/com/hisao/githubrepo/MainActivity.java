@@ -15,6 +15,8 @@ import br.com.hisao.githubrepo.controler.MainControler;
 import br.com.hisao.githubrepo.controler.MainControlerInterface;
 import br.com.hisao.githubrepo.model.Repo;
 
+import static br.com.hisao.githubrepo.controler.MainControler.REPOS_PER_PAGE;
+
 public class MainActivity extends AppCompatActivity implements MainControlerInterface {
 
 
@@ -56,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
         mainControler.retrieveData();
     }
 
+    public void removeFooter() {
+        adapter.notifyItemRemoved(currentRepoList.size() + 1);
+    }
+
     private GithubAdapter adapter;
     private List<Repo> currentRepoList;
 
@@ -66,8 +72,6 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
             rcvContacts.setLayoutManager(linearLayoutManager);
             rcvContacts.setAdapter(adapter);
             rcvContacts.addOnScrollListener(recyclerViewOnScrollListener);
-
-
         } else {
             currentRepoList.addAll(repoList);
             adapter.notifyDataSetChanged();
@@ -103,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
             int totalItemCount = linearLayoutManager.getItemCount();
             int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
             if ((totalItemCount - lastVisibleItemPosition) < 3) {
-               mainControler.retrieveData();
+                mainControler.retrieveData();
             }
         }
     };
@@ -111,7 +115,11 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
     @Override
     public void onDataReceived(List<Repo> repoList) {
         hideLoadingPage();
-        showList(repoList);
+        if (repoList.size() < REPOS_PER_PAGE) {
+            removeFooter();
+        } else {
+            showList(repoList);
+        }
     }
 
     @Override

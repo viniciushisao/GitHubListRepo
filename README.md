@@ -3,7 +3,8 @@ Make a list of Git Hub Repository
 
 # Architecture
 
-Using [retrofit](http://square.github.io/retrofit/) for web calls.
+* Using [retrofit](http://square.github.io/retrofit/) for web calls.
+* Using MVC
 
 # Fail:
 
