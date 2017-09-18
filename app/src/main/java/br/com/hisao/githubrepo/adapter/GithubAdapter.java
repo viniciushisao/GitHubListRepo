@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -36,31 +37,30 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+
+        Log.d("GithubAdapter:onBindViewHolder:41 " + position + " - " + this.getItemCount());
+
         Repo repo = mRepoList.get(position);
 
         if (repo != null) {
-
             holder.txvId.setText(repo.getId().toString());
             holder.txvName.setText(repo.getName());
             holder.txvDescription.setText(repo.getDescription());
-
-        } else {
-            Log.e("GithubAdapter:onBindViewHolder:49 ");
         }
     }
 
     @Override
     public int getItemCount() {
-        return mRepoList.size();
+        return mRepoList.size() + 1;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView txvName;
         TextView txvId;
         TextView txvDescription;
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
             txvDescription = itemView.findViewById(R.id.txvDescription);
             txvId = itemView.findViewById(R.id.txvId);

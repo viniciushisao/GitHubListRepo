@@ -17,8 +17,6 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        Log.d("MyApplication:onCreate:20 ");
         mRetrofit = new Retrofit.Builder()
                 .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())

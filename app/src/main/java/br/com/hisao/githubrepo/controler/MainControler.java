@@ -19,6 +19,7 @@ public class MainControler {
 
     private static final int REPOS_PER_PAGE = 15;
     private static final String REPO_USER = "JakeWharton";
+    private boolean isRetrievingData = false;
 
     private MainControlerInterface mainControlerInterface;
     private int currentPage = 0;
@@ -28,7 +29,13 @@ public class MainControler {
     }
 
     public void retrieveData() {
-        retrieveDataFromInternet();
+        if (!isRetrievingData){
+            Log.d("MainControler:retrieveData:33 ");
+            isRetrievingData = true;
+            retrieveDataFromInternet();
+        }else{
+            Log.d("MainControler:retrieveData:31 ignored isRetrievingData: " + isRetrievingData);
+        }
     }
 
     private void retrieveDataFromInternet() {
@@ -49,6 +56,7 @@ public class MainControler {
             @Override
             protected void onPostExecute(List<Repo> repoList) {
                 super.onPostExecute(repoList);
+                isRetrievingData = false;
                 if (repoList != null) {
                     mainControlerInterface.onDataReceived(repoList);
                 } else {

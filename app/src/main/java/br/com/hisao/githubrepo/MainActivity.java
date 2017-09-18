@@ -14,7 +14,6 @@ import br.com.hisao.githubrepo.adapter.GithubAdapter;
 import br.com.hisao.githubrepo.controler.MainControler;
 import br.com.hisao.githubrepo.controler.MainControlerInterface;
 import br.com.hisao.githubrepo.model.Repo;
-import br.com.hisao.githubrepo.util.Log;
 
 public class MainActivity extends AppCompatActivity implements MainControlerInterface {
 
@@ -61,14 +60,14 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
     private List<Repo> currentRepoList;
 
     private void showList(List<Repo> repoList) {
-        Log.d("MainActivity:showList:62 ");
-
         if (adapter == null) {
             currentRepoList = repoList;
             adapter = new GithubAdapter(currentRepoList);
             rcvContacts.setLayoutManager(linearLayoutManager);
             rcvContacts.setAdapter(adapter);
             rcvContacts.addOnScrollListener(recyclerViewOnScrollListener);
+
+
         } else {
             currentRepoList.addAll(repoList);
             adapter.notifyDataSetChanged();
@@ -96,20 +95,16 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-            int visibleItemCount = linearLayoutManager.getChildCount();
-            int totalItemCount = linearLayoutManager.getItemCount();
-            int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
-
-            if ((totalItemCount - lastVisibleItemPosition) < 3) {
-                showLoadingPage();
-                mainControler.retrieveData();
-            }
-            Log.d("MainActivity:onScrollStateChanged:124 visibleItemCount: " + visibleItemCount + " lastVisibleItemPosition:" + lastVisibleItemPosition);
         }
 
         @Override
         public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
             super.onScrolled(recyclerView, dx, dy);
+            int totalItemCount = linearLayoutManager.getItemCount();
+            int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
+            if ((totalItemCount - lastVisibleItemPosition) < 3) {
+               mainControler.retrieveData();
+            }
         }
     };
 
