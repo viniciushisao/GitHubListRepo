@@ -4,4 +4,5 @@
     <dimen name="margin_botton">20dp</dimen>
     <dimen name="margin">20dp</dimen>
     <dimen name="general_space">10dp</dimen>
+    <dimen name="padding_default">5dp</dimen>
 </resources>

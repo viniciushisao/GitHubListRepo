@@ -64,8 +64,6 @@ public class MainControler {
         } else {
             mainControlerInterface.onDataReceivedError();
         }
-
-
     }
 
     private void retrieveDataFromInternet() {

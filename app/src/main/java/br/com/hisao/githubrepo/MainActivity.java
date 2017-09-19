@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -23,8 +24,10 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
     private RecyclerView rcvContacts;
     private RelativeLayout rllLoading;
     private RelativeLayout rllError;
+    private RelativeLayout rllList;
     private Button btnTryAgain;
     private LinearLayoutManager linearLayoutManager;
+    private TextView txvNoInternet;
     private MainControler mainControler;
 
     @Override
@@ -36,9 +39,17 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
         rllLoading = (RelativeLayout) findViewById(R.id.rllLoading);
         rllError = (RelativeLayout) findViewById(R.id.rllError);
         btnTryAgain = (Button) findViewById(R.id.btnTryAgain);
+        rllList = (RelativeLayout) findViewById(R.id.rllList);
+        txvNoInternet = (TextView) findViewById(R.id.txvNoInternet);
         rcvContacts.setHasFixedSize(true);
 
         mainControler = new MainControler(this);
+
+        if (MyApplication.isInternetAvailable()) {
+            txvNoInternet.setVisibility(View.GONE);
+        } else {
+            txvNoInternet.setVisibility(View.VISIBLE);
+        }
 
         btnTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,6 +76,7 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
     private List<Repo> currentRepoList;
 
     private void showList(List<Repo> repoList) {
+        rllList.setVisibility(View.VISIBLE);
         if (adapter == null) {
             currentRepoList = repoList;
             adapter = new GithubAdapter(currentRepoList);
@@ -75,10 +87,10 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
             currentRepoList.addAll(repoList);
             adapter.notifyDataSetChanged();
         }
-
     }
 
     private void showLoadingPage() {
+        rllList.setVisibility(View.GONE);
         rllLoading.setVisibility(View.VISIBLE);
     }
 
@@ -87,10 +99,12 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
     }
 
     private void showErrorPage() {
+        rllList.setVisibility(View.GONE);
         rllError.setVisibility(View.VISIBLE);
     }
 
     private void hideErrorPage() {
+        rllList.setVisibility(View.GONE);
         rllError.setVisibility(View.GONE);
     }
 

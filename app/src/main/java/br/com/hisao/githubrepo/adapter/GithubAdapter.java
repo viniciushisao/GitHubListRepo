@@ -59,12 +59,11 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.ViewHolder
                     holder.txvDescription.setText(repo.getDescription());
                 }
         }
-
     }
 
     @Override
     public int getItemCount() {
-        return mRepoList.size() ;
+        return mRepoList.size();
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
