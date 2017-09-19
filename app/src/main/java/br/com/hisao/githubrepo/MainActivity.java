@@ -12,13 +12,12 @@ import android.widget.TextView;
 import java.util.List;
 
 import br.com.hisao.githubrepo.adapter.GithubAdapter;
-import br.com.hisao.githubrepo.controler.MainControler;
-import br.com.hisao.githubrepo.controler.MainControlerInterface;
+import br.com.hisao.githubrepo.presenter.MainPresenter;
+import br.com.hisao.githubrepo.presenter.MainPresenterInterface;
 import br.com.hisao.githubrepo.model.Repo;
+import br.com.hisao.githubrepo.presenter.MainPresenterInterfaceCallBack;
 
-import static br.com.hisao.githubrepo.controler.MainControler.REPOS_PER_PAGE;
-
-public class MainActivity extends AppCompatActivity implements MainControlerInterface {
+public class MainActivity extends AppCompatActivity implements MainPresenterInterfaceCallBack {
 
 
     private RecyclerView rcvContacts;
@@ -28,7 +27,10 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
     private Button btnTryAgain;
     private LinearLayoutManager linearLayoutManager;
     private TextView txvNoInternet;
-    private MainControler mainControler;
+    private MainPresenterInterface mainPresenterInterface;
+    private GithubAdapter adapter;
+    private List<Repo> currentRepoList;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
         txvNoInternet = (TextView) findViewById(R.id.txvNoInternet);
         rcvContacts.setHasFixedSize(true);
 
-        mainControler = new MainControler(this);
+        mainPresenterInterface = new MainPresenter(this);
 
         if (MyApplication.isInternetAvailable()) {
             txvNoInternet.setVisibility(View.GONE);
@@ -54,9 +56,7 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
         btnTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hideErrorPage();
-                showLoadingPage();
-                mainControler.retrieveData();
+                mainPresenterInterface.onCallRetry();
             }
         });
     }
@@ -64,18 +64,16 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
     @Override
     protected void onResume() {
         super.onResume();
-        showLoadingPage();
-        mainControler.retrieveData();
+        mainPresenterInterface.onCallOnResume();
     }
 
+    @Override
     public void removeFooter() {
         adapter.notifyItemRemoved(currentRepoList.size() + 1);
     }
 
-    private GithubAdapter adapter;
-    private List<Repo> currentRepoList;
-
-    private void showList(List<Repo> repoList) {
+    @Override
+    public void showList(List<Repo> repoList) {
         rllList.setVisibility(View.VISIBLE);
         if (adapter == null) {
             currentRepoList = repoList;
@@ -89,16 +87,19 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
         }
     }
 
-    private void showLoadingPage() {
+    @Override
+    public void showLoadingPage() {
         rllList.setVisibility(View.GONE);
         rllLoading.setVisibility(View.VISIBLE);
     }
 
-    private void hideLoadingPage() {
+    @Override
+    public void hideLoadingPage() {
         rllLoading.setVisibility(View.GONE);
     }
 
-    private void showErrorPage() {
+    @Override
+    public void showErrorPage() {
         rllList.setVisibility(View.GONE);
         rllError.setVisibility(View.VISIBLE);
     }
@@ -120,23 +121,8 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
             int totalItemCount = linearLayoutManager.getItemCount();
             int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
             if ((totalItemCount - lastVisibleItemPosition) < 3) {
-                mainControler.retrieveData();
+                mainPresenterInterface.onListReachBotton();
             }
         }
     };
-
-    @Override
-    public void onDataReceived(List<Repo> repoList) {
-        hideLoadingPage();
-        if (repoList.size() < REPOS_PER_PAGE) {
-            removeFooter();
-        } else {
-            showList(repoList);
-        }
-    }
-
-    @Override
-    public void onDataReceivedError() {
-        showErrorPage();
-    }
 }
