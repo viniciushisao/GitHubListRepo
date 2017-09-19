@@ -1,14 +1,13 @@
 package br.com.hisao.githubrepo.controler;
 
 import android.os.AsyncTask;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
-import br.com.hisao.githubrepo.GitHubService;
-import br.com.hisao.githubrepo.Helper.dbHelper;
+import br.com.hisao.githubrepo.Helper.DbHelper;
+import br.com.hisao.githubrepo.Helper.GitHubService;
 import br.com.hisao.githubrepo.MyApplication;
 import br.com.hisao.githubrepo.model.Repo;
 import br.com.hisao.githubrepo.util.Log;
@@ -22,23 +21,51 @@ public class MainControler {
 
     public static final int REPOS_PER_PAGE = 15;
     private static final String REPO_USER = "JakeWharton";
-    private boolean isRetrievingData = false;
+
+    private boolean isRetrievingData;
+    private List<Repo> mRepoList;
 
     private MainControlerInterface mainControlerInterface;
-    private int currentPage = 0;
+    private int currentPage;
 
     public MainControler(MainControlerInterface mainControlerInterfaceLocal) {
         this.mainControlerInterface = mainControlerInterfaceLocal;
+        this.currentPage = 0;
+        this.mRepoList = null;
+        this.isRetrievingData = false;
     }
 
     public void retrieveData() {
-        if (!isRetrievingData){
-            Log.d("MainControler:retrieveData:33 ");
+        if (!isRetrievingData) {
             isRetrievingData = true;
-            retrieveDataFromInternet();
-        }else{
-            Log.d("MainControler:retrieveData:31 ignored isRetrievingData: " + isRetrievingData);
+            if (MyApplication.isInternetAvailable()) {
+                retrieveDataFromInternet();
+            } else {
+                retrieveDataFromDB();
+            }
         }
+    }
+
+    private void retrieveDataFromDB() {
+        if (mRepoList == null) {
+            mRepoList = DbHelper.getAll();
+        }
+        List<Repo> repoList = new ArrayList<>();
+
+        for (int i = (currentPage * REPOS_PER_PAGE); i < ((currentPage + 1) * REPOS_PER_PAGE); i++) {
+            if (i < mRepoList.size()) {
+                repoList.add(mRepoList.get(i));
+            }
+        }
+        isRetrievingData = false;
+        currentPage++;
+        if (repoList != null) {
+            mainControlerInterface.onDataReceived(repoList);
+        } else {
+            mainControlerInterface.onDataReceivedError();
+        }
+
+
     }
 
     private void retrieveDataFromInternet() {
@@ -62,8 +89,8 @@ public class MainControler {
                 isRetrievingData = false;
                 if (repoList != null) {
 
-                    dbHelper.storeAll(repoList);
-                    dbHelper.listAll();
+                    DbHelper.storeAll(repoList);
+                    DbHelper.listAll();
 
                     mainControlerInterface.onDataReceived(repoList);
                 } else {

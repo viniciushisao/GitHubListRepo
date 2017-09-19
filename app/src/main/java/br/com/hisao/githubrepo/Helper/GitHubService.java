@@ -1,4 +1,4 @@
-package br.com.hisao.githubrepo;
+package br.com.hisao.githubrepo.Helper;
 
 import java.util.List;
 

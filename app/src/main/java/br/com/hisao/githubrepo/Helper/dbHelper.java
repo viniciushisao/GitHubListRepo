@@ -1,5 +1,6 @@
 package br.com.hisao.githubrepo.Helper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.hisao.githubrepo.model.Repo;
@@ -12,7 +13,7 @@ import io.realm.RealmResults;
  * Created by vinicius on 18/09/17.
  */
 
-public class dbHelper {
+public class DbHelper {
 
     public static void storeAll(final List<Repo> repoList) {
         try {
@@ -22,7 +23,7 @@ public class dbHelper {
                 public void execute(Realm realm) {
                     RealmList<Repo> _newsList = new RealmList<>();
                     _newsList.addAll(repoList);
-                    realm.insert(_newsList);
+                    realm.copyToRealmOrUpdate(_newsList);
                 }
             });
         } catch (Exception e) {
@@ -37,6 +38,20 @@ public class dbHelper {
         for (Repo r : results) {
             Log.d("dbHelper:listAll:44 " + (cont++) + " " + r.getId() + " - " + r.getName());
         }
+    }
+
+    public static List<Repo> getAll() {
+        List<Repo> repoList = new ArrayList<>();
+        Realm realm = Realm.getDefaultInstance();
+        try {
+            RealmResults<Repo> results = realm.where(Repo.class).findAll();
+            for (Repo r : results) {
+                repoList.add(r);
+            }
+        } catch (Exception e) {
+            Log.e("DbHelper:getAll:54 " + e.getMessage());
+        }
+        return repoList;
     }
 }
 
