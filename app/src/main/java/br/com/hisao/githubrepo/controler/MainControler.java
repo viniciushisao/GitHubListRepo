@@ -1,11 +1,14 @@
 package br.com.hisao.githubrepo.controler;
 
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 
 import java.io.IOException;
 import java.util.List;
 
 import br.com.hisao.githubrepo.GitHubService;
+import br.com.hisao.githubrepo.Helper.dbHelper;
 import br.com.hisao.githubrepo.MyApplication;
 import br.com.hisao.githubrepo.model.Repo;
 import br.com.hisao.githubrepo.util.Log;
@@ -58,6 +61,10 @@ public class MainControler {
                 super.onPostExecute(repoList);
                 isRetrievingData = false;
                 if (repoList != null) {
+
+                    dbHelper.storeAll(repoList);
+                    dbHelper.listAll();
+
                     mainControlerInterface.onDataReceived(repoList);
                 } else {
                     mainControlerInterface.onDataReceivedError();

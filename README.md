@@ -4,7 +4,12 @@ Make a list of Git Hub Repository
 # Architecture
 
 * Using [retrofit](http://square.github.io/retrofit/) for web calls.
-* Using MVC
+* Using a variation of [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) which I consider the best for this project.
+* [Realm DB](https://blog.realm.io/realm-for-android/?)
+
+# Material Design
+
+* Using [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html)
 
 # Fail:
 

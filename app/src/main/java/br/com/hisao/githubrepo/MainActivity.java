@@ -27,7 +27,6 @@ public class MainActivity extends AppCompatActivity implements MainControlerInte
     private LinearLayoutManager linearLayoutManager;
     private MainControler mainControler;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

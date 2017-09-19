@@ -4,7 +4,9 @@ package br.com.hisao.githubrepo.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Repo {
+import io.realm.RealmObject;
+
+public class Repo extends RealmObject{
 
     @SerializedName("id")
     @Expose
@@ -197,7 +199,7 @@ public class Repo {
     private Integer forksCount;
     @SerializedName("mirror_url")
     @Expose
-    private Object mirrorUrl;
+    private String mirrorUrl;
     @SerializedName("open_issues_count")
     @Expose
     private Integer openIssuesCount;
@@ -718,12 +720,12 @@ public class Repo {
         this.forksCount = forksCount;
     }
 
-    public Object getMirrorUrl() {
+    public String getMirrorUrl() {
         return mirrorUrl;
     }
 
     public void setMirrorUrl(Object mirrorUrl) {
-        this.mirrorUrl = mirrorUrl;
+        this.mirrorUrl = mirrorUrl.toString();
     }
 
     public Integer getOpenIssuesCount() {

@@ -7,7 +7,9 @@ package br.com.hisao.githubrepo.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Owner {
+import io.realm.RealmObject;
+
+public class Owner extends RealmObject{
 
     @SerializedName("login")
     @Expose

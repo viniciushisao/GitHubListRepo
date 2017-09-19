@@ -2,7 +2,7 @@ package br.com.hisao.githubrepo;
 
 import android.app.Application;
 
-import br.com.hisao.githubrepo.util.Log;
+import io.realm.Realm;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -21,6 +21,8 @@ public class MyApplication extends Application {
                 .baseUrl("https://api.github.com/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+
+        Realm.init(this);
     }
 
     public static Retrofit getRetrofitInstance() {
