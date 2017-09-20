@@ -40,7 +40,7 @@ public class MainPresenter implements MainPresenterInterface {
         }
 
         if (hasFinished) {
-            mainPresenterInterfaceCallBack.removeFooter();
+            mainPresenterInterfaceCallBack.removeLoadingFooter();
         }
     }
 
@@ -52,7 +52,7 @@ public class MainPresenter implements MainPresenterInterface {
             if (repoList.size() < RepoManager.REPOS_PER_PAGE) {
                 hasFinished = true;
                 mainPresenterInterfaceCallBack.showList(repoList);
-                mainPresenterInterfaceCallBack.removeFooter();
+                mainPresenterInterfaceCallBack.removeLoadingFooter();
             } else {
                 mainPresenterInterfaceCallBack.showList(repoList);
             }
@@ -74,7 +74,9 @@ public class MainPresenter implements MainPresenterInterface {
 
     @Override
     public void onCallOnResume() {
+        mainPresenterInterfaceCallBack.setPageTitle(RepoManager.REPO_USER);
         mainPresenterInterfaceCallBack.showLoadingPage();
+
         retrieveData();
     }
 

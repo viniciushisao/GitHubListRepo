@@ -17,8 +17,16 @@ import retrofit2.Call;
  */
 
 public class RepoManager {
-    private static final String REPO_USER = "JakeWharton";
-//    private static final String REPO_USER = "viniciushisao";
+
+    /**
+     * For now, change this variable to make test with other repos.
+     * TODO make it a reference.
+     */
+
+    public static final String REPO_USER = "JakeWharton";
+//    public static final String REPO_USER = "viniciushisao";
+
+
     public static final int REPOS_PER_PAGE = 15;
     private List<Repo> mRepoList;
 
@@ -58,9 +66,7 @@ public class RepoManager {
             protected void onPostExecute(List<Repo> repoList) {
                 super.onPostExecute(repoList);
                 if (repoList != null) {
-
                     DbHelper.storeAll(repoList);
-                    DbHelper.listAll();
                     retrieveDataCallBack.onDataReceived(repoList);
                 } else {
                     retrieveDataCallBack.onDataError();

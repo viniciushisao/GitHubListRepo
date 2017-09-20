@@ -62,9 +62,8 @@ public class MainActivity extends AppCompatActivity implements MainPresenterInte
     }
 
     @Override
-    public void removeFooter() {
+    public void removeLoadingFooter() {
         if (adapter.getItemViewType(adapter.getItemCount() - 1) == GithubAdapter.TYPE_FOOTER) {
-//            adapter.notifyItemRemoved(currentRepoList.size() + 1);
             rcvContacts.getAdapter().notifyItemRemoved(currentRepoList.size() + 1);
         }
     }
@@ -115,6 +114,11 @@ public class MainActivity extends AppCompatActivity implements MainPresenterInte
     public void hideErrorPage() {
         rllList.setVisibility(View.GONE);
         rllError.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void setPageTitle(String pageTitle) {
+        this.setTitle(pageTitle);
     }
 
     private RecyclerView.OnScrollListener recyclerViewOnScrollListener = new RecyclerView.OnScrollListener() {

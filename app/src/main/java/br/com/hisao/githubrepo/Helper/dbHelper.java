@@ -31,15 +31,6 @@ public class DbHelper {
         }
     }
 
-    public static void listAll() {
-        Realm realm = Realm.getDefaultInstance();
-        RealmResults<Repo> results = realm.where(Repo.class).findAll();
-        int cont = 1;
-        for (Repo r : results) {
-            Log.d("dbHelper:listAll:44 " + (cont++) + " " + r.getId() + " - " + r.getName());
-        }
-    }
-
     public static List<Repo> getAll() {
         List<Repo> repoList = new ArrayList<>();
         Realm realm = Realm.getDefaultInstance();

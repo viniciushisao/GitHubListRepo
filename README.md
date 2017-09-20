@@ -19,15 +19,17 @@ Make a list of Git Hub Repository. Currently it is just working for listing Jake
 * [Realm DB](https://blog.realm.io/realm-for-android/?)
 * Internet connection is checked and maintained in the very beginning start of application. This will avoid to change from local to internet in the middle of operations.
 
-# Material Design
+# Design
 
 * Using [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html)
 * Using [CardView](https://developer.android.com/training/material/lists-cards.html)
+* When I think in design I think as engineed :D. The less interactions is better. In this case, user has only one iteraction to make: if data is not available, it needs to click on retry button.
 
 # TODO
 
 * Probably there are more corner cases I did not tested.
 * Improve tests. The ones I have right now are poor.
+* I tried to make a design so I could create some unit tests. At the end, I was able to create tests to test the functionality of Realm, so I decided to not include it.
 * For now, I just locked to not rotate the screen. 
 * I did all development and tests in only one device, [Samsung S5](https://www.phonearena.com/phones/Samsung-Galaxy-S5_id8202), running Android 6.0.1.
 
@@ -35,4 +37,3 @@ Make a list of Git Hub Repository. Currently it is just working for listing Jake
 
 * Just found that google already its pagination [library](https://developer.android.com/topic/libraries/architecture/paging.html) AFTER I do all the work! Hahahahah. Anyway, there is not much gain on using Google's code and mine are pretty simple tho.
 * I am not good in design. Anyway, I do have all the information I need. If in the future we need to add more information, it will be just a matter of UI.
-* 

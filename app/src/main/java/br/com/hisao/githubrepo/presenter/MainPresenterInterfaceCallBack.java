@@ -14,7 +14,7 @@ public interface MainPresenterInterfaceCallBack {
 
     void hideLoadingPage();
 
-    void removeFooter();
+    void removeLoadingFooter();
 
     void showList(List<Repo> repoList);
 
@@ -25,4 +25,6 @@ public interface MainPresenterInterfaceCallBack {
     void hideFailInternetData();
 
     void hideErrorPage();
+
+    void setPageTitle(String pageTitle);
 }
