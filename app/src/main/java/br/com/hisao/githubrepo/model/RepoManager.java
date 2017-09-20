@@ -32,7 +32,11 @@ public class RepoManager {
                 repoList.add(mRepoList.get(i));
             }
         }
-        retrieveDataCallBack.onDataReceived(repoList);
+        if (mRepoList.size() > 0){
+            retrieveDataCallBack.onDataReceived(repoList);
+        }else{
+            retrieveDataCallBack.onDataError();
+        }
     }
 
     public void retrieveDataFromInternet(int page, final RetrieveDataCallBack retrieveDataCallBack) {

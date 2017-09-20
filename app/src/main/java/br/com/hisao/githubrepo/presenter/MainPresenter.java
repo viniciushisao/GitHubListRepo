@@ -2,7 +2,6 @@ package br.com.hisao.githubrepo.presenter;
 
 import java.util.List;
 
-import br.com.hisao.githubrepo.MyApplication;
 import br.com.hisao.githubrepo.model.Repo;
 import br.com.hisao.githubrepo.model.RepoManager;
 
@@ -16,21 +15,25 @@ public class MainPresenter implements MainPresenterInterface {
     private int currentPage;
     private RepoManager repoManager;
     private MainPresenterInterfaceCallBack mainPresenterInterfaceCallBack;
+    private boolean isInternetDataAvailable;
 
     public MainPresenter(MainPresenterInterfaceCallBack mainPresenterInterfaceCallBack) {
         this.mainPresenterInterfaceCallBack = mainPresenterInterfaceCallBack;
         this.currentPage = 0;
         this.repoManager = new RepoManager();
         this.isRetrievingData = false;
+        this.isInternetDataAvailable = true;
     }
 
     private void retrieveData() {
         if (!isRetrievingData) {
             isRetrievingData = true;
-            if (MyApplication.isInternetAvailable()) {
-                repoManager.retrieveDataFromInternet(currentPage++, retrieveDataCallBack);
+            if (isInternetDataAvailable) {
+                this.mainPresenterInterfaceCallBack.hideFailInternetData();
+                repoManager.retrieveDataFromInternet(currentPage, retrieveDataCallBack);
             } else {
-                repoManager.retrieveDataFromDB(currentPage++, retrieveDataCallBack);
+                mainPresenterInterfaceCallBack.showFailInternetData();
+                repoManager.retrieveDataFromDB(currentPage, retrieveDataCallBack);
             }
         }
     }
@@ -45,14 +48,19 @@ public class MainPresenter implements MainPresenterInterface {
             } else {
                 mainPresenterInterfaceCallBack.showList(repoList);
             }
-
+            currentPage++;
             isRetrievingData = false;
         }
 
         @Override
         public void onDataError() {
-            mainPresenterInterfaceCallBack.showErrorPage();
             isRetrievingData = false;
+            if (isInternetDataAvailable && currentPage == 0) {
+                isInternetDataAvailable = false;
+                retrieveData();
+            } else {
+                mainPresenterInterfaceCallBack.showErrorPage();
+            }
         }
     };
 
@@ -69,7 +77,8 @@ public class MainPresenter implements MainPresenterInterface {
 
     @Override
     public void onCallRetry() {
-        mainPresenterInterfaceCallBack.hideLoadingPage();
+        isInternetDataAvailable = true;
+        mainPresenterInterfaceCallBack.hideErrorPage();
         mainPresenterInterfaceCallBack.showLoadingPage();
         retrieveData();
     }

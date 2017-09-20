@@ -19,4 +19,10 @@ public interface MainPresenterInterfaceCallBack {
     void showList(List<Repo> repoList);
 
     void showErrorPage();
+
+    void showFailInternetData();
+
+    void hideFailInternetData();
+
+    void hideErrorPage();
 }

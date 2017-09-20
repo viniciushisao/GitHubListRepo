@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">GithubRepo</string>
     <string name="loading_repositories">Loading Repositories</string>
-    <string name="something_wrong_happened_are_you_sure_you_do_have_internet_conection">Something wrong happened. Are you sure you do have internet conection?</string>
+    <string name="something_wrong_happened_no_data">Something wrong happened. No data available.</string>
     <string name="try_again">Try Again</string>
-    <string name="no_internet_connection">No internet connection</string>
+    <string name="failed_retrieve_internet">Failed to retrieve data from Internet</string>
 </resources>

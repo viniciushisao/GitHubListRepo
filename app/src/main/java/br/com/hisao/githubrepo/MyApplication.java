@@ -2,7 +2,6 @@ package br.com.hisao.githubrepo;
 
 import android.app.Application;
 
-import br.com.hisao.githubrepo.Helper.InternetHelper;
 import io.realm.Realm;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -14,7 +13,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MyApplication extends Application {
 
     private static Retrofit mRetrofit;
-    private static boolean isInternetAvailable = false;
 
     @Override
     public void onCreate() {
@@ -26,11 +24,6 @@ public class MyApplication extends Application {
 
         Realm.init(this);
 
-        isInternetAvailable = InternetHelper.isInternetAvailable(getApplicationContext());
-    }
-
-    public static boolean isInternetAvailable() {
-        return isInternetAvailable;
     }
 
     public static Retrofit getRetrofitInstance() {

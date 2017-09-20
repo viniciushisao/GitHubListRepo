@@ -47,12 +47,6 @@ public class MainActivity extends AppCompatActivity implements MainPresenterInte
 
         mainPresenterInterface = new MainPresenter(this);
 
-        if (MyApplication.isInternetAvailable()) {
-            txvNoInternet.setVisibility(View.GONE);
-        } else {
-            txvNoInternet.setVisibility(View.VISIBLE);
-        }
-
         btnTryAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +98,18 @@ public class MainActivity extends AppCompatActivity implements MainPresenterInte
         rllError.setVisibility(View.VISIBLE);
     }
 
-    private void hideErrorPage() {
+    @Override
+    public void showFailInternetData() {
+        txvNoInternet.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideFailInternetData() {
+        txvNoInternet.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void hideErrorPage() {
         rllList.setVisibility(View.GONE);
         rllError.setVisibility(View.GONE);
     }
