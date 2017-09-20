@@ -23,7 +23,7 @@ Make a list of Git Hub Repository. Currently it is just working for listing Jake
 
 * Using [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html)
 * Using [CardView](https://developer.android.com/training/material/lists-cards.html)
-* When I think in design I think as engineed :D. The less interactions is better. In this case, user has only one iteraction to make: if data is not available, it needs to click on retry button.
+* When I think in design I think as engineer :D. The less is better. In this case, user has only one interaction to make: if data is not available, it needs to click on retry button.
 
 # TODO
 
@@ -37,3 +37,4 @@ Make a list of Git Hub Repository. Currently it is just working for listing Jake
 
 * Just found that google already its pagination [library](https://developer.android.com/topic/libraries/architecture/paging.html) AFTER I do all the work! Hahahahah. Anyway, there is not much gain on using Google's code and mine are pretty simple tho.
 * I am not good in design. Anyway, I do have all the information I need. If in the future we need to add more information, it will be just a matter of UI.
+* No iconography. Used defaults. Not beautiful.
