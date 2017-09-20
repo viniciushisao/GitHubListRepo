@@ -29,8 +29,10 @@ Make a list of Git Hub Repository. Currently it is just working for listing Jake
 * Probably there are more corner cases I did not tested.
 * Improve tests. The ones I have right now are poor.
 * For now, I just locked to not rotate the screen. 
+* I did all development and tests in only one device, [Samsung S5](https://www.phonearena.com/phones/Samsung-Galaxy-S5_id8202), running Android 6.0.1.
 
 # Fail:
 
 * Just found that google already its pagination [library](https://developer.android.com/topic/libraries/architecture/paging.html) AFTER I do all the work! Hahahahah. Anyway, there is not much gain on using Google's code and mine are pretty simple tho.
 * I am not good in design. Anyway, I do have all the information I need. If in the future we need to add more information, it will be just a matter of UI.
+* 
