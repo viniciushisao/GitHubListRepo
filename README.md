@@ -7,11 +7,10 @@ Make a list of Git Hub Repository. Currently it is just working for listing Jake
 1. Application starts and retrieves data from Internet.
    1. If data from Internet fails:
    1. Data from local database is displayed.
-   1. A message on top of screen is shown indicating there is no internet conection
+   1. A message on top of screen is shown indicating there is no data from internet
       1. If data from local database fails:
       1. it shows an error page and a button to retry. 
-1. Data is displayed in screen with pagination.
-
+1. Data is displayed in screen with pagination (no matter if came from ).
 
 # Architecture
 
@@ -20,7 +19,6 @@ Make a list of Git Hub Repository. Currently it is just working for listing Jake
 * [Realm DB](https://blog.realm.io/realm-for-android/?)
 * Internet connection is checked and maintained in the very beginning start of application. This will avoid to change from local to internet in the middle of operations.
 
-
 # Material Design
 
 * Using [RecyclerView](https://developer.android.com/reference/android/support/v7/widget/RecyclerView.html)
@@ -28,7 +26,9 @@ Make a list of Git Hub Repository. Currently it is just working for listing Jake
 
 # TODO
 
-* The application does not 
+* Probably there are more corner cases I did not tested.
+* Improve tests. The ones I have right now are poor.
+* For now, I just locked to not rotate the screen. 
 
 # Fail:
 

@@ -78,6 +78,7 @@ public class MainPresenter implements MainPresenterInterface {
     @Override
     public void onCallRetry() {
         isInternetDataAvailable = true;
+        currentPage = 0;
         mainPresenterInterfaceCallBack.hideErrorPage();
         mainPresenterInterfaceCallBack.showLoadingPage();
         retrieveData();
