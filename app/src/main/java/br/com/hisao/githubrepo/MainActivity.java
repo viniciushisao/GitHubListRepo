@@ -63,7 +63,10 @@ public class MainActivity extends AppCompatActivity implements MainPresenterInte
 
     @Override
     public void removeFooter() {
-        adapter.notifyItemRemoved(currentRepoList.size() + 1);
+        if (adapter.getItemViewType(adapter.getItemCount() - 1) == GithubAdapter.TYPE_FOOTER) {
+//            adapter.notifyItemRemoved(currentRepoList.size() + 1);
+            rcvContacts.getAdapter().notifyItemRemoved(currentRepoList.size() + 1);
+        }
     }
 
     @Override
@@ -118,16 +121,17 @@ public class MainActivity extends AppCompatActivity implements MainPresenterInte
         @Override
         public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
-        }
 
-        @Override
-        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-            super.onScrolled(recyclerView, dx, dy);
             int totalItemCount = linearLayoutManager.getItemCount();
             int lastVisibleItemPosition = linearLayoutManager.findLastVisibleItemPosition();
             if ((totalItemCount - lastVisibleItemPosition) < 3) {
                 mainPresenterInterface.onListReachBotton();
             }
+        }
+
+        @Override
+        public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
         }
     };
 }

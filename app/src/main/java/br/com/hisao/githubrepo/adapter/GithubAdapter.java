@@ -22,8 +22,8 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.ViewHolder
 
     private static List<Repo> mRepoList;
 
-    private static final int TYPE_ITEM = 1;
-    private static final int TYPE_FOOTER = 2;
+    public static final int TYPE_ITEM = 1;
+    public static final int TYPE_FOOTER = 2;
 
     public GithubAdapter(List<Repo> repoList) {
         this.mRepoList = repoList;
@@ -63,7 +63,7 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return mRepoList.size();
+        return mRepoList.size() + 1;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
@@ -89,6 +89,6 @@ public class GithubAdapter extends RecyclerView.Adapter<GithubAdapter.ViewHolder
     }
 
     private static boolean isPositionFooter(int position) {
-        return position == mRepoList.size() - 1;
+        return position == mRepoList.size() ;
     }
 }

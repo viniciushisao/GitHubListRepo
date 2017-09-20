@@ -16,6 +16,7 @@ public class MainPresenter implements MainPresenterInterface {
     private RepoManager repoManager;
     private MainPresenterInterfaceCallBack mainPresenterInterfaceCallBack;
     private boolean isInternetDataAvailable;
+    private boolean hasFinished;
 
     public MainPresenter(MainPresenterInterfaceCallBack mainPresenterInterfaceCallBack) {
         this.mainPresenterInterfaceCallBack = mainPresenterInterfaceCallBack;
@@ -23,10 +24,11 @@ public class MainPresenter implements MainPresenterInterface {
         this.repoManager = new RepoManager();
         this.isRetrievingData = false;
         this.isInternetDataAvailable = true;
+        this.hasFinished = false;
     }
 
     private void retrieveData() {
-        if (!isRetrievingData) {
+        if (!isRetrievingData && !hasFinished) {
             isRetrievingData = true;
             if (isInternetDataAvailable) {
                 this.mainPresenterInterfaceCallBack.hideFailInternetData();
@@ -36,6 +38,10 @@ public class MainPresenter implements MainPresenterInterface {
                 repoManager.retrieveDataFromDB(currentPage, retrieveDataCallBack);
             }
         }
+
+        if (hasFinished) {
+            mainPresenterInterfaceCallBack.removeFooter();
+        }
     }
 
     private RepoManager.RetrieveDataCallBack retrieveDataCallBack = new RepoManager.RetrieveDataCallBack() {
@@ -44,6 +50,8 @@ public class MainPresenter implements MainPresenterInterface {
             mainPresenterInterfaceCallBack.hideLoadingPage();
 
             if (repoList.size() < RepoManager.REPOS_PER_PAGE) {
+                hasFinished = true;
+                mainPresenterInterfaceCallBack.showList(repoList);
                 mainPresenterInterfaceCallBack.removeFooter();
             } else {
                 mainPresenterInterfaceCallBack.showList(repoList);
@@ -78,6 +86,7 @@ public class MainPresenter implements MainPresenterInterface {
     @Override
     public void onCallRetry() {
         isInternetDataAvailable = true;
+        hasFinished = false;
         currentPage = 0;
         mainPresenterInterfaceCallBack.hideErrorPage();
         mainPresenterInterfaceCallBack.showLoadingPage();
