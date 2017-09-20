@@ -1,6 +1,8 @@
 # GitHub List 
 
-Make a list of Git Hub Repository. Currently it is just working for listing JakeWharton's repository. In the future, I plan to change it.
+Make a list of Git Hub Repository. Currently it is just working for listing JakeWharton's repository. In the future, I plan to change it. 
+
+This is an Android project using Gradle. Usually the easiest way to run it is install latest [Android Studio](https://developer.android.com/studio/index.html), open this project and everything should work fine. It is not tested it other IDEs.
 
 # How it works
 
